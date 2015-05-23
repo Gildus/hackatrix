@@ -145,48 +145,48 @@ $.post('getdatos.php',function(data){
     });
     flightPath1.setMap(map);
     
-    var flightPlanCoordinates = [];
+    var flightPlanCoordinates3 = [];
     ruta3.forEach(function(entry) {
-        flightPlanCoordinates.push(new google.maps.LatLng(entry.x,entry.y));
+        flightPlanCoordinates3.push(new google.maps.LatLng(entry.x,entry.y));
     });
-    var flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
+    var flightPath3 = new google.maps.Polyline({
+      path: flightPlanCoordinates3,
       geodesic: false,
       strokeColor: '#C23B22',
       strokeOpacity: 1.0,
       strokeWeight: 2
     });
-    flightPath.setMap(map);
+    flightPath3.setMap(map);
     
-    var flightPlanCoordinates = [];
+    var flightPlanCoordinates4 = [];
     
     ruta4.forEach(function(entry) {
-        flightPlanCoordinates.push(new google.maps.LatLng(entry.x,entry.y));
+        flightPlanCoordinates4.push(new google.maps.LatLng(entry.x,entry.y));
     });
     
-    var flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
+    var flightPath4 = new google.maps.Polyline({
+      path: flightPlanCoordinates4,
       geodesic: false,
-      strokeColor: '#C23B22',
+      strokeColor: '#000000',
       strokeOpacity: 1.0,
       strokeWeight: 2
     });
-    flightPath.setMap(map);
+    flightPath4.setMap(map);
     
-    var flightPlanCoordinates = [];
+    var flightPlanCoordinates5 = [];
     
     ruta5.forEach(function(entry) {
-        flightPlanCoordinates.push(new google.maps.LatLng(entry.x,entry.y));
+        flightPlanCoordinates5.push(new google.maps.LatLng(entry.x,entry.y));
     });
     
-    var flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
+    var flightPath5 = new google.maps.Polyline({
+      path: flightPlanCoordinates5,
       geodesic: false,
-      strokeColor: '#C23B22',
+      strokeColor: '#00FFFF',
       strokeOpacity: 1.0,
       strokeWeight: 2
     });
-    flightPath.setMap(map);
+    flightPath5.setMap(map);
     
     var locationInicio = new google.maps.LatLng(-12.080927,-77.031317);
     var locationFin = new google.maps.LatLng(-12.080927,-76.991317);
@@ -232,7 +232,7 @@ $.post('getdatos.php',function(data){
                 markerInicio.getPosition().lat(),
                 markerInicio.getPosition().lng(),
                 markerFin.getPosition().lat(),
-                markerFin.getPosition().lng(),tga,metro
+                markerFin.getPosition().lng(),tga,metro,ruta3,ruta4,ruta5
                         );
         }
     }
@@ -253,7 +253,7 @@ $.post('getdatos.php',function(data){
                 markerInicio.getPosition().lat(),
                 markerInicio.getPosition().lng(),
                 markerFin.getPosition().lat(),
-                markerFin.getPosition().lng(),tga,metro
+                markerFin.getPosition().lng(),tga,metro,ruta3,ruta4,ruta5
             );
         }
     }
@@ -275,10 +275,46 @@ $.post('getdatos.php',function(data){
 
         return km; 
     }
+function comp(lat1,long1,lat2,long2,ruta)
+{
+    var current,current1,tot;
+    var in1 = 1000000000;
+    var fi1 = 1000000000;
+    ruta.forEach(function(entry) {
+                current = distanciaGeodesica(
+                    entry.x,
+                    entry.y,
+                    lat1,
+                    long1
+                            );
+                    current1 = distanciaGeodesica(
+                    entry.x,
+                    entry.y,
+                    lat2,
+                    long2
+                            );
+                if(current < in1)
+                    in1 = current;
+                if(current1 < fi1)
+                    fi1 = current1;
+        });
+    tot = in1 + fi1;
+    return tot;
+}
+    function comparador(lat1,long1,lat2,long2,tga,metro,ruta3,ruta4,ruta5) {
+        var res = [];
+        tga1 = comp(lat1,long1,lat2,long2,tga);
+        metro1 = comp(lat1,long1,lat2,long2,metro);
+        ruta31 = comp(lat1,long1,lat2,long2,ruta3);
+        ruta41 = comp(lat1,long1,lat2,long2,ruta4);
+        ruta51 = comp(lat1,long1,lat2,long2,ruta5);
 
-
-    function comparador(lat1,long1,lat2,long2,tga,metro) {
-        var tgaInicio = 1000000000;
+        res.push({"x":tga1, "y": 'Corredor Azul'});
+        res.push({"x":metro1, "y": 'Metropolitano'});
+        res.push({"x":ruta31, "y": 'Ruta 3'});
+        res.push({"x":ruta41, "y": 'Ruta 4'});
+        res.push({"x":ruta51, "y": 'Ruta 5'});
+        /*var tgaInicio = 1000000000;
         var tgaFinal = 1000000000;
         var metroInicio = 1000000000;
         var metroFinal = 1000000000;
@@ -318,15 +354,23 @@ $.post('getdatos.php',function(data){
                 metroInicio = current2;
             if(current3 < metroFinal)
                 metroFinal = current3;
-        });
-
-        if(metroInicio + metroFinal > tgaInicio + tgaFinal) {
-            $('#myModal .modal-body .ruta').html('TGA');           
-            console.log('TGA');
+        });*/
+        var resu = 100000000;
+        var resu1;
+res.forEach(function(entry) {
+        if(entry.x < resu)
+        {
+            resu = entry.x;
+           resu1 = entry.y;
+       }
+    });
+    $('#myModal .modal-body .ruta').html(resu1);
+        /*if(metroInicio + metroFinal > tgaInicio + tgaFinal) {
+            $('#myModal .modal-body .ruta').html('Corredor Azul');           
         } else {
            console.log('Metro');
-           $('#myModal .modal-body .ruta').html('Metro');
-        }
+           $('#myModal .modal-body .ruta').html('Metropolitano');
+        }*/
         $('#myModal').modal('show');
         
     }
