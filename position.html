@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+	function getLocation() {
+		try {
+			if (navigator.geolocation) {
+				$("#demo").html("Obteniendo ubicación...");
+		        navigator.geolocation.getCurrentPosition(showPosition);
+		    } else {
+		        $("#demo").html("Geolocation is not supported by this browser.");
+		    }
+		} catch(err) {
+			alert(err);
+		}
+	}
+	
+	function showPosition(position) {
+		try {
+			$("#demo").html("Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude);
+		} catch(err) {
+			$("#demo").html("No se pudo obtener la ubicación");
+			alert(err);
+		}
+	}
+</script>
+</head>
+<body>
+	<button onclick="getLocation()">Get Location</button>
+	<div id="demo"></div>
+</body>
+</html>
