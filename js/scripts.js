@@ -1,6 +1,46 @@
-
+		function mostrarDetalle(id)
+		{
+			/*var transportes = [["Protransporte","(51) 451 3865","Autobus","1.jpg"],
+							   ["Chama","(51) 332 6547","Coaster","2.jpg"],
+							   ["Etupsa","(51) 463 9877","Autobus","3.jpg"],
+							   ["San Ignacio","(51) 321 5555","Combi","4.jpg"],
+							   ["CTI","(51) 324 9996","Combi","5.jpg"]
+							   ];*/
+				
+				var transportes = {};
+			transportes["Metropolitano"] = ["Protransporte","(51) 451 3865","Autobus","1.jpg"];
+			transportes["Ruta 4"] = ["Chama","(51) 332 6547","Coaster","2.jpg"];
+			transportes["Ruta 3"] =	   ["Etupsa","(51) 463 9877","Autobus","3.jpg"];
+			transportes["Ruta 5"] =   ["San Ignacio","(51) 321 5555","Combi","4.jpg"];
+			transportes["Corredor Azul"] =	   ["CTI","(51) 324 9996","Combi","5.jpg"];	
+				
+			var empresa = transportes[id];
+			$('#nombreEmpresa').html(empresa[0]);
+			$('#fonoEmpresa').html(empresa[1]);
+			$('#tipoEmpresa').html(empresa[2]);
+			$("#imgEmpresa").attr("src","img/"+empresa[3]);
+		}	
+		
 $(document).ready(function(){/* google maps -----------------------------------------------------*/
 google.maps.event.addDomListener(window, 'load', initialize);
+
+			var dialog;
+		 
+			dialog = $( "#dialog-message" ).dialog({
+			  autoOpen: false,
+			  height: 550,
+			  width: 450,
+			  modal: true,
+			  buttons: {
+				Cancel: function() {
+				  dialog.dialog( "close" );
+				}
+			  }
+			});
+		 
+			$( ".urls" ).on( "click", function(event) {
+			  dialog.dialog( "open" );
+			});
 
 function initialize() {
 
@@ -364,6 +404,7 @@ res.forEach(function(entry) {
            resu1 = entry.y;
        }
     });
+	mostrarDetalle(resu1);
     $('#myModal .modal-body .ruta').html(resu1);
         /*if(metroInicio + metroFinal > tgaInicio + tgaFinal) {
             $('#myModal .modal-body .ruta').html('Corredor Azul');           
