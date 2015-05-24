@@ -7,6 +7,7 @@
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -58,21 +59,13 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="exampleModalLabel">Ruta Optima</h4>
         </div>  
-      <div class="modal-body">
-          La ruta que debes tomar es <label class="label label-info ruta"></label>
-      </div>      
-	  			<div class="panel panel-primary">
-				<div class="panel-heading">
-				  <h2 class="panel-title"><span id="nombreEmpresa"></span></h3>
-				</div>
-				<div class="panel-body">
-					<blockquote>
-						<p><i class="fa fa-phone fa-2x"></i><span id="fonoEmpresa"></span></p>
-						<p><i class="fa fa-bus fa-2x"></i><span id="tipoEmpresa"></span></p>
-					</blockquote>
-					<img id="imgEmpresa" src="img/1.jpg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> 
-				</div>
-			</div>
+		<div class="modal-body">
+          La ruta que debes tomar es <label class="label label-success ruta"></label>
+		  <h2 class="panel-title"><span id="nombreEmpresa"></span></h3>		  			
+			<label class="label label-warning"><i class="fa fa-phone"></i> <span id="fonoEmpresa"></span></label><br />
+			<label class="label label-info"><i class="fa fa-bus"></i> <span id="tipoEmpresa"></span></label><br />	<br />
+			<img id="imgEmpresa" src="img/1.jpg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">		  
+		</div>      
     </div>
   </div>
 </div>
