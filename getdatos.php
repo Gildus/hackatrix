@@ -9,8 +9,8 @@ $tga = array();
 foreach ($json->result as $key => $item) {
     if ($key > 0) {
         $tga[] = array(
-            'x' => $item[0],
-            'y' => $item[1]
+            'y' => (float)$item[0],
+            'x' => (float)$item[1]
         );
     }
     
@@ -26,15 +26,23 @@ $metro = array();
 foreach ($json_metro->result as $key => $item) {
     if ($key > 0) {
         $metro[] = array(
-            'x' => $item[0],
-            'y' => $item[1]
+            'y' => (float)$item[0],
+            'x' => (float)$item[1]
         );
     }
     
 }
 
 echo json_encode(array(
-    'metro' => $metro,
-    'tga' => $tga,
+    'metro' => array(
+        'n' => 'Metropolitano',
+        'c' => '#00FF00',
+        'r' => $metro
+    ),
+    'tga' => array(
+        'n' => 'Corredor Azul',
+        'c' => '#0000FF',
+        'r' => $tga
+    ),
 ));
 
